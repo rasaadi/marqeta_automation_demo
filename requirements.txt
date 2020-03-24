@@ -4,3 +4,4 @@ pytest-logger
 pytest-html
 pytest-dependency
 pep8
+marqeta

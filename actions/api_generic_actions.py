@@ -15,7 +15,6 @@ class ApiGenericActions(BaseTest):
         """
         init method to create object of the class
         """
-        # Netsense.__init__(self, pod_name)
         self.session = requests.Session()
         self.base_url = StaticConfig.SANDBOX_BASE_URL
         self.headers = {
@@ -24,10 +23,11 @@ class ApiGenericActions(BaseTest):
         }
         self.payload = None
         self.data = None
+        self.auth = None
 
     def get(self, url):
         """
-        generic GET method to perform API GET
+        generic GET method to perform API GET request
         :param url:
         :return:
         """
@@ -42,15 +42,27 @@ class ApiGenericActions(BaseTest):
                 return response
             else:
                 raise MarqetaApiException("Marqeta api GET request error, "
-                                          "response content: {}".format(response.text))
+                                          "response content: {}".format(
+                    response.text))
 
-    def post(self, url, payload=None, data=None):
+    def post(self, url, data=None, auth=None):
+        """
+        generic POST method to perform API POST request
+        :param url:
+        :param payload:
+        :param data:
+        :return:
+        """
         logger.info("Executing POST request: {}".format(url))
-        self.payload = payload
         self.data = data
+        self.auth = auth
         try:
-            response = self.session.post(url, headers=self.headers,
-                                         json=self.payload, data=self.data)
+            if auth is not None:
+                response = self.session.post(url, headers=self.headers,
+                                             data=self.data, auth=self.auth)
+            else:
+                response = self.session.post(url, headers=self.headers,
+                                             data=self.data)
             time.sleep(5)
         except requests.exceptions.RequestException as re:
             logger.error("POST request execution failed: {}".format(re))
@@ -59,4 +71,13 @@ class ApiGenericActions(BaseTest):
                 return response
             else:
                 raise MarqetaApiException("Marqeta api POST request error, "
-                                          "response content: {}".format(response.text))
+                                          "response content: {}".format(
+                    response.text))
+
+    def create_user(self, user_details, auth_token):
+        logger.info("Creating a new user")
+        user_url = self.base_url + "users"
+        if user_details is not None:
+            new_user = self.post(user_url, user_details, auth_token)
+        else:
+            logger.error("Missing new user details")

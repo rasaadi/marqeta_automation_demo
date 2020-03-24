@@ -1,0 +1,99 @@
+{
+  "card_product_token": "string",
+  "expedite": false,
+  "metadata": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "expiration_offset": {
+    "unit": "YEARS",
+    "value": 0
+  },
+  "credit_line": {
+    "token": "string",
+    "response": {
+      "code": "string",
+      "memo": "string"
+    }
+  },
+  "token": "string",
+  "user_token": "string",
+  "fulfillment": {
+    "shipping": {
+      "method": "FEDEX_EXPEDITED",
+      "return_address": {
+        "first_name": "string",
+        "middle_name": "string",
+        "last_name": "string",
+        "address1": "string",
+        "address2": "string",
+        "city": "string",
+        "state": "string",
+        "zip": "string",
+        "country": "string",
+        "phone": "string",
+        "postal_code": "string"
+      },
+      "recipient_address": {
+        "first_name": "string",
+        "middle_name": "string",
+        "last_name": "string",
+        "address1": "string",
+        "address2": "string",
+        "city": "string",
+        "state": "string",
+        "zip": "string",
+        "country": "string",
+        "phone": "string",
+        "postal_code": "string"
+      },
+      "care_of_line": "string"
+    },
+    "card_personalization": {
+      "text": {
+        "name_line_1": {
+          "value": "string"
+        },
+        "name_line_2": {
+          "value": "string"
+        },
+        "name_line_3": {
+          "value": "string"
+        }
+      },
+      "images": {
+        "card": {
+          "name": "string",
+          "thermal_color": "string"
+        },
+        "carrier": {
+          "name": "string",
+          "message_1": "string"
+        },
+        "signature": {
+          "name": "string"
+        },
+        "carrier_return_window": {
+          "name": "string"
+        }
+      },
+      "carrier": {
+        "template_id": "string",
+        "logo_file": "string",
+        "logo_thumbnail_file": "string",
+        "message_file": "string",
+        "message_line": "string"
+      },
+      "perso_type": "EMBOSS"
+    },
+    "card_fulfillment_reason": "NEW"
+  },
+  "reissue_pan_from_card_token": "string",
+  "translate_pin_from_card_token": "string",
+  "activation_actions": {
+    "terminate_reissued_source_card": true,
+    "swap_digital_wallet_tokens_from_card_token": "string"
+  },
+  "bulk_issuance_token": "string"
+}
