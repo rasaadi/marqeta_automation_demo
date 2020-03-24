@@ -1,0 +1,2 @@
+class CardCreationVerifications:
+    pass
