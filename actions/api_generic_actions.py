@@ -81,3 +81,5 @@ class ApiGenericActions(BaseTest):
             new_user = self.post(user_url, user_details, auth_token)
         else:
             logger.error("Missing new user details")
+
+        return new_user
