@@ -1,0 +1,6 @@
+pytest
+requests
+pytest-logger
+pytest-html
+pytest-dependency
+pep8
