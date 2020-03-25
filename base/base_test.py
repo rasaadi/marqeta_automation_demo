@@ -35,4 +35,4 @@ class BaseTest:
         teardown_method() will be invoked for every test method of a class
         at the end.
         """
-        logger.info("<<<<<<<<<<<<<<<<<<<<<<END CLASS>>>>>>>>>>>>>>>>>>>>>>")
+        logger.info("<<<<<<<<<<<<<<<<<<<<<<END TEST>>>>>>>>>>>>>>>>>>>>>>")

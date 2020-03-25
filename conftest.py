@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 # #
 # #
-#   This to resolved module import handling path issue
+# This to resolved module import handling path issue
 ##
 ##
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -16,8 +16,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 # #
 # #
-#   Test run: pytest -s -v --html=reports/e2e_ps_test_report.html --self-contained-html tests/test_NsnApiSanity.py
-#   HTML Report Handler
+# HTML Report Handler
 ##
 ##
 @pytest.mark.optionalhook
