@@ -45,3 +45,16 @@ class CardVerifications(BaseTest):
         card_api_response['fulfillment']['card_personalization']['text'][
             'name_line_1']['value'] == personalized_name, "Custom name " \
                                                           "mismatch"
+
+    def verify_multiple_cards_same_user_product_success(self, card1_details,
+                                                        card2_details):
+        # Can be improved by accepting a list of cards instead of multiple
+        # individual card
+        logger.info("verifying multiple cards creation for same user and "
+                    "card product successful")
+        assert card1_details is not None, "No card details found"
+        assert card2_details is not None, "No card details found"
+        assert card1_details['last_four'] != card2_details['last_four'], \
+            "last_four digits are same for multiple cards"
+        assert card1_details['token'] != card2_details['token'], \
+            "token are same for multiple cards"
