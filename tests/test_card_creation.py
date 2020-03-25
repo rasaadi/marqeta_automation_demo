@@ -22,7 +22,7 @@ class TestCardCreation(BaseTest):
     user_details = json.dumps(user_dict)
 
     card_prod_dict = {
-        "start_date": "2019-01-01",
+        "start_date": timestamp.date(),
         "name": "Example Card Product",
         "config": {
             "fulfillment": {
