@@ -15,15 +15,14 @@ class ApiGenericActions(BaseTest):
         """
         init method to create object of the class
         """
-        self.session = requests.Session()
         self.base_url = StaticConfig.SANDBOX_BASE_URL
         self.headers = {
             'Content-type': 'application/json',
-            'Accept': 'application/json'
         }
-        self.payload = None
         self.data = None
         self.auth = None
+        self.app_token = StaticConfig.APP_TOKEN
+        self.master_token = StaticConfig.MASTER_TOKEN
 
     def get(self, url):
         """
@@ -33,53 +32,40 @@ class ApiGenericActions(BaseTest):
         """
         logger.info("Executing GET request: {}".format(url))
         try:
-            response = self.session.get(url, headers=self.headers)
+            response = requests.get(url, headers=self.headers,
+                                    auth=(self.app_token, self.master_token))
             time.sleep(5)
         except requests.exceptions.RequestException as re:
             logger.error("GET request execution failed: {}".format(re))
         else:
-            if response.status_code == 200:
+            if response.status_code == 200 or response.status_code == 201:
                 return response
             else:
                 raise MarqetaApiException("Marqeta api GET request error, "
                                           "response content: {}".format(
                     response.text))
 
-    def post(self, url, data=None, auth=None):
+    def post(self, url, data=None):
         """
         generic POST method to perform API POST request
         :param url:
-        :param payload:
         :param data:
         :return:
         """
         logger.info("Executing POST request: {}".format(url))
-        self.data = data
-        self.auth = auth
         try:
-            if auth is not None:
-                response = self.session.post(url, headers=self.headers,
-                                             data=self.data, auth=self.auth)
-            else:
-                response = self.session.post(url, headers=self.headers,
-                                             data=self.data)
+            if data is not None:
+                response = requests.post(url, headers=self.headers,
+                                         data=data, auth=(self.app_token,
+                                                          self.master_token))
+
             time.sleep(5)
         except requests.exceptions.RequestException as re:
             logger.error("POST request execution failed: {}".format(re))
         else:
-            if response.status_code == 200:
+            if response.status_code == 201:
                 return response
             else:
                 raise MarqetaApiException("Marqeta api POST request error, "
                                           "response content: {}".format(
                     response.text))
-
-    def create_user(self, user_details, auth_token):
-        logger.info("Creating a new user")
-        user_url = self.base_url + "users"
-        if user_details is not None:
-            new_user = self.post(user_url, user_details, auth_token)
-        else:
-            logger.error("Missing new user details")
-
-        return new_user
