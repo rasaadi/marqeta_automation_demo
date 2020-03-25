@@ -42,7 +42,9 @@ class CardActions(ApiGenericActions):
         source_url = self.base_url + "fundingsources/program"
         if source_details is not None:
             new_program_fund = self.post(source_url, source_details)
-            # self.funding_source_token = new_program_fund['token']
+            # Not sure why needs to convert to JSON
+            program_data = new_program_fund.json()
+            self.funding_source_token = program_data['token']
         else:
             logger.error("Missing funding source details")
 
