@@ -44,7 +44,7 @@ class ApiGenericActions(BaseTest):
             else:
                 raise MarqetaApiException("Marqeta api GET request error, "
                                           "response content: {}".format(
-                    response.text))
+                                                                response.text))
 
     # TODO: will remove once refactore all other dependent test case
     def post(self, url, data=None):
