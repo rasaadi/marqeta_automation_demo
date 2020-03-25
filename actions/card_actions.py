@@ -29,11 +29,12 @@ class CardActions(ApiGenericActions):
 
         card_url = self.base_url + "cards"
         if card_details is not None:
-            # new_card, http_code = self.post(card_url, card_details).json()
-            new_card, http_code = self.post2(card_url, card_details)
+            response_msg, http_code = self.post2(card_url, card_details)
 
-            logger.info("New card: {}".format(new_card.json()))
-            logger.info("Status Code: {}".format(http_code))
+            try:
+                new_card = response_msg.json()
+            except ValueError as ve:
+                logger.error("Failed to convert card details into JSON")
 
             if http_code == 201:
                 self.product_token = new_card['token']
@@ -45,7 +46,7 @@ class CardActions(ApiGenericActions):
         else:
             logger.error("Missing card details")
 
-        return new_card.json()
+        return response_msg.json()
 
     def create_program_funding_source(self, source_details):
         logger.info("Creating a  program funding source")

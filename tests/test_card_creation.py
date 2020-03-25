@@ -50,7 +50,7 @@ class TestCardCreation(BaseTest):
         return Data(user_token=user_client.user_token,
                     card_product_token=card_client.product_token)
 
-    @pytest.mark.skip(reason="no way of currently testing this")
+    # @pytest.mark.skip(reason="no way of currently testing this")
     def test_create_card_success(self, resources):
         """
         Test create a new card  successfully
@@ -77,6 +77,7 @@ class TestCardCreation(BaseTest):
         card_verifications = CardVerifications()
         card_verifications.verify_card_creation_success(card, resources)
 
+    # @pytest.mark.skip(reason="no way of currently testing this")
     def test_create_card_without_user_token_fail(self, resources):
         """
         Test create a new card  without user token unsuccessfully

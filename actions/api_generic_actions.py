@@ -46,6 +46,7 @@ class ApiGenericActions(BaseTest):
                                           "response content: {}".format(
                     response.text))
 
+    # TODO: will remove once refactore all other dependent test case
     def post(self, url, data=None):
         """
         generic POST method to perform API POST request
