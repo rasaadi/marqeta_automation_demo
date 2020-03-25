@@ -13,14 +13,28 @@ class CardActions(ApiGenericActions):
         self.funding_source_token = None
 
     def create_card_product(self, card_product_details):
-        logger.info("Creating a  new card product")
+        logger.info("Creating a new card product")
 
         product_url = self.base_url + "cardproducts"
         if card_product_details is not None:
-            new_product = self.post(product_url, card_product_details).json()
-            self.product_token = new_product['token']
+            response_msg, http_code = self.post2(product_url,
+                                                 card_product_details)
+
+            try:
+                new_product = response_msg.json()
+            except ValueError as ve:
+                logger.error("Failed to convert card product details into "
+                             "JSON")
+
+            if http_code == 201:
+                self.product_token = new_product['token']
+            elif http_code == 409:
+                logger.error(
+                    "Token already associated with a different payload")
+            else:
+                logger.error("User input error/Bad request")
         else:
-            logger.error("Missing card product details")
+            logger.error("Missing card details")
 
         return new_product
 
