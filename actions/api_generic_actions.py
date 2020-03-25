@@ -18,6 +18,7 @@ class ApiGenericActions(BaseTest):
         self.base_url = StaticConfig.SANDBOX_BASE_URL
         self.headers = {
             'Content-type': 'application/json',
+            'Accept': 'application/json',
         }
         self.data = None
         self.auth = None
