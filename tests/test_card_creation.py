@@ -1,18 +1,19 @@
 import json
 import logging
 from collections import namedtuple
-
 import pytest
 
 from actions.card_actions import CardActions
 from actions.user_actions import UserActions
 from base.base_test import BaseTest
+from utils.utils_helper import UtilsHelper
 from verifications.card_verifications import CardVerifications
 
 logger = logging.getLogger(__name__)
 
 
 class TestCardCreation(BaseTest):
+    timestamp = UtilsHelper()
     user_dict = {
         "first_name": "Joe",
         "last_name": "Sam",
@@ -130,4 +131,43 @@ class TestCardCreation(BaseTest):
         #
         logger.info("Card details: {}".format(card))
         card_verifications = CardVerifications()
-        card_verifications.verify_invalid_product_token_card_creation_fail(card)
+        card_verifications.verify_invalid_product_token_card_creation_fail(
+            card)
+
+    # @pytest.mark.skip(reason="Test Disable")
+    def test_create_personalized_card_with_name_success(self, resources):
+        """
+        Test create a new personalized card with custom name successfully
+        """
+        #
+        # ================ CONFIGURATION ================
+        #
+        custom_name = "custom_name_" + self.timestamp.time_stamp()
+        card_dict = {
+            "user_token": resources.user_token,
+            "card_product_token": resources.card_product_token,
+            "fulfillment": {
+                "card_personalization": {
+                    "text": {
+                        "name_line_1": {
+                            "value": custom_name
+                        }
+                    }
+                }
+            }
+        }
+        card_details = json.dumps(card_dict)
+
+        #
+        # ================ ACTION ================
+        #
+        card_client = CardActions()
+        card = card_client.create_card(card_details)
+        # logger.info("Card details: {}".format(card))
+
+        #
+        # ================ VERIFICATION ================
+        #
+        card_verifications = CardVerifications()
+        card_verifications.verify_card_creation_custom_name_success(card,
+                                                                    custom_name)
