@@ -46,7 +46,7 @@ class CardActions(ApiGenericActions):
         else:
             logger.error("Missing card details")
 
-        return response_msg.json()
+        return new_card
 
     def create_program_funding_source(self, source_details):
         logger.info("Creating a  program funding source")

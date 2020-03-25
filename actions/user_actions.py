@@ -12,11 +12,26 @@ class UserActions(ApiGenericActions):
 
     def create_user(self, user_details):
         logger.info("Creating a new user")
+
         user_url = self.base_url + "users"
         if user_details is not None:
-            new_user = self.post(user_url, user_details).json()
-            self.user_token = new_user['token']
+            response_msg, http_code = self.post2(user_url, user_details)
+
+            try:
+                new_user = response_msg.json()
+            except ValueError as ve:
+                logger.error("Failed to convert user details into JSON")
+
+            if http_code == 201:
+                self.user_token = new_user['token']
+            elif http_code == 409:
+                logger.error(
+                    "Request already processed with a different payload")
+            elif http_code == 412:
+                logger.error("Pre-condition setup issue")
+            else:
+                logger.error("User input error/Bad request")
         else:
-            logger.error("Missing new user details")
+            logger.error("Missing card details")
 
         return new_user
