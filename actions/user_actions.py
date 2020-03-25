@@ -15,7 +15,7 @@ class UserActions(ApiGenericActions):
 
         user_url = self.base_url + "users"
         if user_details is not None:
-            response_msg, http_code = self.post2(user_url, user_details)
+            response_msg, http_code = self.post(user_url, user_details)
 
             try:
                 new_user = response_msg.json()

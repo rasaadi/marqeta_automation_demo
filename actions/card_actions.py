@@ -17,8 +17,8 @@ class CardActions(ApiGenericActions):
 
         product_url = self.base_url + "cardproducts"
         if card_product_details is not None:
-            response_msg, http_code = self.post2(product_url,
-                                                 card_product_details)
+            response_msg, http_code = self.post(product_url,
+                                                card_product_details)
 
             try:
                 new_product = response_msg.json()
@@ -43,7 +43,7 @@ class CardActions(ApiGenericActions):
 
         card_url = self.base_url + "cards"
         if card_details is not None:
-            response_msg, http_code = self.post2(card_url, card_details)
+            response_msg, http_code = self.post(card_url, card_details)
 
             try:
                 new_card = response_msg.json()
@@ -67,7 +67,7 @@ class CardActions(ApiGenericActions):
 
         source_url = self.base_url + "fundingsources/program"
         if source_details is not None:
-            response_msg, http_code = self.post2(source_url, source_details)
+            response_msg, http_code = self.post(source_url, source_details)
 
             try:
                 new_program_fund = response_msg.json()
