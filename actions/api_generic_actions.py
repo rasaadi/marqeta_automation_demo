@@ -70,7 +70,7 @@ class ApiGenericActions(BaseTest):
             else:
                 raise MarqetaApiException("Marqeta api POST request error, "
                                           "response content: {}".format(
-                    response.text))
+                                                                response.text))
 
     def post2(self, url, data=None):
         """
@@ -95,4 +95,4 @@ class ApiGenericActions(BaseTest):
             else:
                 raise MarqetaApiException("Marqeta api POST request error, "
                                           "response content: {}".format(
-                    response.text))
+                                                                response.text))
