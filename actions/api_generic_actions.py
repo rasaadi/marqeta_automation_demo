@@ -70,3 +70,28 @@ class ApiGenericActions(BaseTest):
                 raise MarqetaApiException("Marqeta api POST request error, "
                                           "response content: {}".format(
                     response.text))
+
+    def post2(self, url, data=None):
+        """
+        generic POST method to perform API POST request
+        :param url:
+        :param data:
+        :return:
+        """
+        logger.info("Executing POST request: {}".format(url))
+        try:
+            if data is not None:
+                response = requests.post(url, headers=self.headers,
+                                         data=data, auth=(self.app_token,
+                                                          self.master_token))
+
+            time.sleep(2)
+        except requests.exceptions.RequestException as re:
+            logger.error("POST request execution failed: {}".format(re))
+        else:
+            if response.status_code != 500:
+                return response, response.status_code
+            else:
+                raise MarqetaApiException("Marqeta api POST request error, "
+                                          "response content: {}".format(
+                    response.text))
