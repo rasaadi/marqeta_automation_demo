@@ -97,7 +97,7 @@ class TestSanityApi(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        logger.info(funding_source.text)
+        logger.info(funding_source)
 
 
     @pytest.mark.skip(reason="no way of currently testing this")

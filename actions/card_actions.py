@@ -51,7 +51,7 @@ class CardActions(ApiGenericActions):
                 logger.error("Failed to convert card details into JSON")
 
             if http_code == 201:
-                self.product_token = new_card['token']
+                self.card_token = new_card['token']
             elif http_code == 409:
                 logger.error(
                     "Token already associated with a different payload")
@@ -67,9 +67,22 @@ class CardActions(ApiGenericActions):
 
         source_url = self.base_url + "fundingsources/program"
         if source_details is not None:
-            new_program_fund = self.post(source_url, source_details).json()
-            self.funding_source_token = new_program_fund['token']
+            response_msg, http_code = self.post2(source_url, source_details)
+
+            try:
+                new_program_fund = response_msg.json()
+            except ValueError as ve:
+                logger.error(
+                    "Failed to convert funding source details into JSON")
+
+            if http_code == 201:
+                self.funding_source_token = new_program_fund['token']
+            elif http_code == 409:
+                logger.error(
+                    "Request already associated with a different payload")
+            else:
+                logger.error("Invalid fields detected")
         else:
-            logger.error("Missing funding source details")
+            logger.error("Missing card details")
 
         return new_program_fund
