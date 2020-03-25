@@ -14,7 +14,7 @@ class UserActions(ApiGenericActions):
         logger.info("Creating a new user")
         user_url = self.base_url + "users"
         if user_details is not None:
-            new_user = self.post(user_url, user_details)
+            new_user = self.post(user_url, user_details).json()
             self.user_token = new_user['token']
         else:
             logger.error("Missing new user details")

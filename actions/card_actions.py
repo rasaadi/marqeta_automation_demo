@@ -17,7 +17,7 @@ class CardActions(ApiGenericActions):
 
         product_url = self.base_url + "cardproducts"
         if card_product_details is not None:
-            new_product = self.post(product_url, card_product_details)
+            new_product = self.post(product_url, card_product_details).json()
             self.product_token = new_product['token']
         else:
             logger.error("Missing card product details")
@@ -25,11 +25,12 @@ class CardActions(ApiGenericActions):
         return new_product
 
     def create_card(self, card_details):
-        logger.info("Creating a  new card product")
+        logger.info("Creating a  new card")
 
         card_url = self.base_url + "cards"
         if card_details is not None:
-            new_card = self.post(card_url, card_details)
+            new_card = self.post(card_url, card_details).json()
+            # card_data = new_card.json()
             self.product_token = new_card['token']
         else:
             logger.error("Missing card details")
@@ -41,11 +42,10 @@ class CardActions(ApiGenericActions):
 
         source_url = self.base_url + "fundingsources/program"
         if source_details is not None:
-            new_program_fund = self.post(source_url, source_details)
-            # Not sure why needs to convert to JSON
-            program_data = new_program_fund.json()
-            self.funding_source_token = program_data['token']
+            new_program_fund = self.post(source_url, source_details).json()
+            self.funding_source_token = new_program_fund['token']
         else:
             logger.error("Missing funding source details")
 
         return new_program_fund
+
