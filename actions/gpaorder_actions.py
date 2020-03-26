@@ -5,25 +5,25 @@ from actions.api_generic_actions import ApiGenericActions
 logger = logging.getLogger(__name__)
 
 
-class TransactionActions(ApiGenericActions):
+class GpaorderActions(ApiGenericActions):
     def __init__(self):
         super().__init__()
-        self.transaction_token = None
-        self.url = self.base_url + "simulate/authorization"
+        self.gpaorder_token = None
+        self.url = self.base_url + "gpaorders"
 
-    def create_transaction(self, transaction_payload):
-        logger.info("Creating a new transaction")
+    def create_gpaorder(self, gpaorder_payload):
+        logger.info("Creating a new gpaorder")
 
-        if transaction_payload is not None:
-            response_msg, http_code = self.post(self.url, transaction_payload)
+        if gpaorder_payload is not None:
+            response_msg, http_code = self.post(self.url, gpaorder_payload)
 
             try:
-                transaction = response_msg.json()
+                gpaorder = response_msg.json()
             except ValueError as ve:
-                logger.error("Failed to convert transaction details into JSON")
+                logger.error("Failed to convert gpaorder details into JSON")
 
             if http_code == 201:
-                self.transaction_token = transaction['token']
+                self.gpaorder_token = gpaorder['token']
             elif http_code == 409:
                 logger.error(
                     "Request already processed with a different payload")
@@ -33,6 +33,6 @@ class TransactionActions(ApiGenericActions):
             else:
                 logger.error("User input error/Bad request")
         else:
-            logger.error("Missing transaction details")
+            logger.error("Missing gpaorder details")
 
-        return transaction
+        return gpaorder
