@@ -57,7 +57,7 @@ class TestTransaction(BaseTest):
                     funding_source_token=funding_client.funding_source_token,
                     gpaorder_token=funding_client.gpaorder_token)
 
-    @pytest.mark.skip(reason="Test Disable")
+    # @pytest.mark.skip(reason="Test Disable")
     def test_create_transaction_success(self, resources):
         """
         Test create a new transaction  successfully
@@ -83,9 +83,9 @@ class TestTransaction(BaseTest):
             transaction, 15)
 
     # @pytest.mark.skip(reason="Test Disable")
-    def test_transaction_decline_exceeds_fund_success(self, resources):
+    def test_transaction_no_card_fund_decline(self, resources):
         """
-        Test create a new transaction  successfully
+        Test transaction decline when no card fund available
         """
         #
         # ================ CONFIGURATION ================
@@ -97,17 +97,16 @@ class TestTransaction(BaseTest):
         resources.card_client.create_card_product(PayloadGenerator.
                                                   card_product_payload())
 
-        # Create card for the user using card product
+        # Create card
         resources.card_client.create_card(PayloadGenerator.card_payload(
             user_token=resources.user_client.user_token,
             card_product_token=resources.card_client.product_token))
 
-        transaction_details = PayloadGenerator.transaction_payload(
-            amount="111", card_token=resources.card_client.card_token)
-
         #
         # ================ ACTION ================
         #
+        transaction_details = PayloadGenerator.transaction_payload(
+            amount="111", card_token=resources.card_client.card_token)
 
         transaction_actions = TransactionActions()
         transaction = transaction_actions.create_transaction(
@@ -116,6 +115,4 @@ class TestTransaction(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        logger.info(json.dumps(transaction, indent=2))
-        # TransactionVerifications.verify_transaction_create_success(
-        #     transaction, 15)
+        TransactionVerifications.verify_transaction_decline(transaction)

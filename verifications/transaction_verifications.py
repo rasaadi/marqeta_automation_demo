@@ -13,6 +13,12 @@ class TransactionVerifications(BaseTest):
         assert transaction_response is not None, "No transaction details found"
         assert transaction_response['transaction']['token'] is not None, \
             "No transaction token found"
-        assert transaction_response['transaction'][
-                   'amount'] == transaction_amount, \
-            "Transaction amount mismatch"
+        assert transaction_response['transaction']['amount'] == \
+            transaction_amount, "Transaction amount mismatch"
+
+    @staticmethod
+    def verify_transaction_decline(transaction_response):
+        logger.info("verifying transaction is declined")
+        assert transaction_response is not None, "No transaction details found"
+        assert transaction_response['transaction']['state'] == "DECLINED", \
+            "Transaction state mismatch"
