@@ -27,8 +27,6 @@ class TestCardCreation(BaseTest):
         card_client.create_card_product(
             PayloadGenerator.card_product_payload())
 
-        # card_verification = CardVerifications()
-
         Data = namedtuple('Data', 'user_client, user_token, card_client,'
                                   'card_product_token')
 
@@ -83,7 +81,7 @@ class TestCardCreation(BaseTest):
         CardVerifications.verify_multiple_cards_same_user_product_success(
             card1, card2)
 
-    @pytest.mark.skip(reason="Test Disable")
+    # @pytest.mark.skip(reason="Test Disable")
     def test_create_personalized_card_with_name_success(self, resources):
         """
         Test create a new personalized card with custom name successfully
@@ -115,10 +113,10 @@ class TestCardCreation(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        resources.card_verification.verify_card_creation_custom_name_success(
-            card, custom_name)
+        CardVerifications.verify_card_creation_custom_name_success(card,
+                                                                   custom_name)
 
-    @pytest.mark.skip(reason="Test Disable")
+    # @pytest.mark.skip(reason="Test Disable")
     def test_create_card_without_user_token_fail(self, resources):
         """
         Test create a new card without user token unsuccessfully
@@ -126,11 +124,9 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        card_dict = {
-            "user_token": '',
-            "card_product_token": resources.card_product_token
-        }
-        card_details = json.dumps(card_dict)
+        card_details = PayloadGenerator.card_payload(
+            user_token='',
+            card_product_token=resources.card_product_token)
 
         #
         # ================ ACTION ================
@@ -140,10 +136,9 @@ class TestCardCreation(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        resources.card_verification.verify_no_user_token_card_creation_fail(
-            card)
+        CardVerifications.verify_no_user_token_card_creation_fail(card)
 
-    @pytest.mark.skip(reason="Test Disable")
+    # @pytest.mark.skip(reason="Test Disable")
     def test_create_card_with_invalid_product_token_fail(self, resources):
         """
         Test create a new card  with invalid product token unsuccessfully
@@ -151,11 +146,9 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        card_dict = {
-            "user_token": resources.user_token,
-            "card_product_token": 'invalid_token'
-        }
-        card_details = json.dumps(card_dict)
+        card_details = PayloadGenerator.card_payload(
+            user_token=resources.user_token,
+            card_product_token='invalid_token')
 
         #
         # ================ ACTION ================
@@ -165,5 +158,4 @@ class TestCardCreation(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        resources.card_verification. \
-            verify_invalid_product_token_card_creation_fail(card)
+        CardVerifications.verify_invalid_product_token_card_creation_fail(card)
