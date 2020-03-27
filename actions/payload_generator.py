@@ -8,14 +8,13 @@ logger = logging.getLogger(__name__)
 
 
 class PayloadGenerator:
-    timestamp = UtilsHelper()
 
     @staticmethod
     def user_payload():
         logger.info("Generating user payload")
         user_dict = {
-            "first_name": "Joe_" + PayloadGenerator.timestamp.time_stamp(),
-            "last_name": "Smith_" + PayloadGenerator.timestamp.time_stamp(),
+            "first_name": "Joe_" + UtilsHelper.time_stamp(),
+            "last_name": "Smith_" + UtilsHelper.time_stamp(),
             "active": True
         }
         user_payload = json.dumps(user_dict)
@@ -25,8 +24,8 @@ class PayloadGenerator:
     def card_product_payload():
         logger.info("Generating card product payload")
         card_prod_dict = {
-            "start_date": PayloadGenerator.timestamp.date(),
-            "name": "New_Card_Product_" + PayloadGenerator.timestamp.date(),
+            "start_date": UtilsHelper.date(),
+            "name": "New_Card_Product_" + UtilsHelper.date(),
             "config": {
                 "fulfillment": {
                     "payment_instrument": "VIRTUAL_PAN"
@@ -72,8 +71,7 @@ class PayloadGenerator:
     def funding_source_payload():
         logger.info("Generating program funding source payload")
         funding_dict = {
-            "name": "Program_Funding_" +
-                    PayloadGenerator.timestamp.time_stamp()
+            "name": "Program_Funding_" + UtilsHelper.time_stamp()
         }
 
         funding_payload = json.dumps(funding_dict)
