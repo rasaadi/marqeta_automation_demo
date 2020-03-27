@@ -37,7 +37,7 @@ class CardActions(ApiGenericActions):
         return new_product
 
     def create_card(self, card_details):
-        logger.info("Creating a  new card")
+        logger.info("Creating a new card")
 
         if card_details is not None:
             response_msg, http_code = self.post(self.card_url, card_details)

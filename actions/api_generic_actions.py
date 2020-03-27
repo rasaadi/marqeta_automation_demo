@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ApiGenericActions(BaseTest):
     def __init__(self):
         """
-        init method to create object of the class
+        init method to create object of this class
         """
         self.base_url = StaticConfig.SANDBOX_BASE_URL
         self.headers = {
@@ -26,8 +26,8 @@ class ApiGenericActions(BaseTest):
     def get(self, url):
         """
         generic GET method to perform API GET request
-        :param url:
-        :return:
+        :param url: API end point URL
+        :return: response, status_code
         """
         logger.info("Executing GET request: {}".format(url))
         try:
@@ -47,9 +47,9 @@ class ApiGenericActions(BaseTest):
     def post(self, url, data=None):
         """
         generic POST method to perform API POST request
-        :param url:
-        :param data:
-        :return:
+        :param url: API end point URL
+        :param data: Request body
+        :return: response, status_code
         """
         logger.info("Executing POST request: {}".format(url))
         try:
