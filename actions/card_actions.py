@@ -20,7 +20,7 @@ class CardActions(ApiGenericActions):
         """
         method to create card products
         :param card_product_details: request payload containing product details
-        :return: new_product
+        :return: new_product(json)
         """
         logger.info("Creating a new card product")
 
@@ -48,7 +48,7 @@ class CardActions(ApiGenericActions):
         """
         method to create card
         :param card_details: request payload containing card details
-        :return: new_card
+        :return: new_card(json)
         """
         logger.info("Creating a new card")
 
