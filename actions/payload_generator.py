@@ -11,7 +11,12 @@ class PayloadGenerator:
 
     @staticmethod
     def user_payload():
+        """
+        method to create to payload for new user creation API request
+        :return: user_payload(json)
+        """
         logger.info("Generating user payload")
+
         user_dict = {
             "first_name": "Joe_" + UtilsHelper.time_stamp(),
             "last_name": "Smith_" + UtilsHelper.time_stamp(),
@@ -22,7 +27,12 @@ class PayloadGenerator:
 
     @staticmethod
     def card_product_payload():
+        """
+        method to create to payload for new card product creation API request
+        :return: card_prod_payload(json)
+        """
         logger.info("Generating card product payload")
+
         card_prod_dict = {
             "start_date": UtilsHelper.date(),
             "name": "New_Card_Product_" + UtilsHelper.date(),
@@ -43,7 +53,13 @@ class PayloadGenerator:
 
     @staticmethod
     def card_payload(**kwargs):
+        """
+        method to create to payload for new card creation API request
+        :param kwargs: contains new card details
+        :return: card_payload(json)
+        """
         logger.info("Generating card payload")
+
         card_dict = {
             "user_token": "**USER TOKEN**",
             "card_product_token": "**CARD PRODUCT TOKEN**"
@@ -69,7 +85,12 @@ class PayloadGenerator:
 
     @staticmethod
     def funding_source_payload():
+        """
+        method to create to payload for new funding source creation API request
+        :return: funding_payload(json)
+        """
         logger.info("Generating program funding source payload")
+
         funding_dict = {
             "name": "Program_Funding_" + UtilsHelper.time_stamp()
         }
@@ -79,7 +100,13 @@ class PayloadGenerator:
 
     @staticmethod
     def gpaorder_payload(**kwargs):
+        """
+        method to create to payload for new gaporder creation API request
+        :param kwargs: contains new gaporder details
+        :return: gpaorder_payload(json)
+        """
         logger.info("Generating gpaorder payload")
+
         gpaorder_dict = {
             "user_token": "**USER TOKEN**",
             "amount": "1000",
@@ -100,7 +127,14 @@ class PayloadGenerator:
 
     @staticmethod
     def user_account_funding_payload(**kwargs):
+        """
+        method to create to payload for new user account funding creation API
+        request
+        :param kwargs: contains new user account fund details
+        :return: account_fund_payload(json)
+        """
         logger.info("Generating user account funding payload")
+
         account_dict = {
             "user_token": "**USER TOKEN**",
             "amount": "1000",
@@ -121,7 +155,13 @@ class PayloadGenerator:
 
     @staticmethod
     def transaction_payload(**kwargs):
+        """
+        method to create to payload for new transaction creation API request
+        :param kwargs: contains new transaction details
+        :return: transaction_payload(json)
+        """
         logger.info("Generating transaction payload")
+
         transaction_dict = {
             "amount": "10",
             "mid": str(random.randrange(1000000000, 9999999999)),
