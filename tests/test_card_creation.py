@@ -1,4 +1,3 @@
-import json
 import logging
 from collections import namedtuple
 import pytest
@@ -14,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class TestCardCreation(BaseTest):
-    timestamp = UtilsHelper()
 
     @pytest.fixture(scope='module')
     def resources(self):
@@ -89,21 +87,21 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        custom_name = "custom_name_" + self.timestamp.time_stamp()
-        card_dict = {
-            "user_token": resources.user_token,
-            "card_product_token": resources.card_product_token,
-            "fulfillment": {
-                "card_personalization": {
-                    "text": {
-                        "name_line_1": {
-                            "value": custom_name
-                        }
+        custom_name = "custom_name_" + UtilsHelper.time_stamp()
+        fulfillment_details = {
+            "card_personalization": {
+                "text": {
+                    "name_line_1": {
+                        "value": custom_name
                     }
                 }
             }
         }
-        card_details = json.dumps(card_dict)
+
+        card_details = PayloadGenerator.card_payload(
+            user_token=resources.user_token,
+            card_product_token=resources.card_product_token,
+            fulfillment=fulfillment_details)
 
         #
         # ================ ACTION ================

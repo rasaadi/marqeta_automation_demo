@@ -49,14 +49,21 @@ class PayloadGenerator:
             "user_token": "**USER TOKEN**",
             "card_product_token": "**CARD PRODUCT TOKEN**"
         }
+        additional_dic = {}
 
         if len(kwargs) >= 2:
             for key in kwargs:
                 for k in card_dict:
                     if key == k:
                         card_dict[k] = kwargs[key]
+                    else:
+                        additional_dic[key] = kwargs[key]
         else:
             logger.error("Insufficient card details provided")
+
+        if additional_dic is not None:
+            "Updating default payload with additional content"
+            card_dict.update(additional_dic)
 
         card_payload = json.dumps(card_dict)
         return card_payload
