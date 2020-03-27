@@ -11,7 +11,8 @@ logger = logging.getLogger(__name__)
 # This to resolved module import handling path issue
 ##
 ##
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0,
+                os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 # #
