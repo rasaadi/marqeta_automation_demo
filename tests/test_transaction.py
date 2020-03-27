@@ -5,6 +5,7 @@ from collections import namedtuple
 import pytest
 
 from actions.card_actions import CardActions
+from actions.funding_actions import FundingActions
 from actions.payload_generator import PayloadGenerator
 from actions.transaction_actions import TransactionActions
 from actions.user_actions import UserActions
@@ -33,15 +34,29 @@ class TestTransaction(BaseTest):
             user_token=user_client.user_token,
             card_product_token=card_client.product_token))
 
+        # Create Funding program source
+        funding_client = FundingActions()
+        funding_client.create_program_funding_source(
+            PayloadGenerator.funding_source_payload())
+
+        # Fund the user account
+        funding_client.create_gpaorder(PayloadGenerator.gpaorder_payload(
+            user_token=user_client.user_token,
+            funding_source_token=funding_client.funding_source_token))
+
         Data = namedtuple('Data',
                           'user_client, user_token, card_client,'
-                          'card_product_token, card_token')
+                          'card_product_token, card_token, funding_client, '
+                          'funding_source_token, gpaorder_token')
 
         return Data(user_client=user_client,
                     user_token=user_client.user_token,
                     card_client=card_client,
                     card_product_token=card_client.product_token,
-                    card_token=card_client.card_token)
+                    card_token=card_client.card_token,
+                    funding_client=funding_client,
+                    funding_source_token=funding_client.funding_source_token,
+                    gpaorder_token=funding_client.gpaorder_token)
 
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_transaction_success(self, resources):
