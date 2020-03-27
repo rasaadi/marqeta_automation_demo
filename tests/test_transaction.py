@@ -56,6 +56,8 @@ class TestTransaction(BaseTest):
                     funding_source_token=funding_client.funding_source_token,
                     gpaorder_token=funding_client.gpaorder_token)
 
+    @pytest.mark.all_test
+    @pytest.mark.smoke_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_transaction_success(self, resources):
         """
@@ -80,6 +82,7 @@ class TestTransaction(BaseTest):
         TransactionVerifications.verify_transaction_create_success(
             transaction, 15)
 
+    @pytest.mark.all_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_transaction_no_card_fund_decline(self, resources):
         """

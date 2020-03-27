@@ -1,4 +1,3 @@
-import json
 import logging
 from collections import namedtuple
 import pytest
@@ -14,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class TestCardCreation(BaseTest):
-    timestamp = UtilsHelper()
 
     @pytest.fixture(scope='module')
     def resources(self):
@@ -35,6 +33,8 @@ class TestCardCreation(BaseTest):
                     card_client=card_client,
                     card_product_token=card_client.product_token)
 
+    @pytest.mark.all_test
+    @pytest.mark.smoke_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_card_success(self, resources):
         """
@@ -57,6 +57,7 @@ class TestCardCreation(BaseTest):
         #
         CardVerifications.verify_card_creation_success(card, resources)
 
+    @pytest.mark.all_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_multiple_cards_same_user_product_success(self, resources):
         """
@@ -81,6 +82,7 @@ class TestCardCreation(BaseTest):
         CardVerifications.verify_multiple_cards_same_user_product_success(
             card1, card2)
 
+    @pytest.mark.all_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_personalized_card_with_name_success(self, resources):
         """
@@ -89,21 +91,21 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        custom_name = "custom_name_" + self.timestamp.time_stamp()
-        card_dict = {
-            "user_token": resources.user_token,
-            "card_product_token": resources.card_product_token,
-            "fulfillment": {
-                "card_personalization": {
-                    "text": {
-                        "name_line_1": {
-                            "value": custom_name
-                        }
+        custom_name = "custom_name_" + UtilsHelper.time_stamp()
+        fulfillment_details = {
+            "card_personalization": {
+                "text": {
+                    "name_line_1": {
+                        "value": custom_name
                     }
                 }
             }
         }
-        card_details = json.dumps(card_dict)
+
+        card_details = PayloadGenerator.card_payload(
+            user_token=resources.user_token,
+            card_product_token=resources.card_product_token,
+            fulfillment=fulfillment_details)
 
         #
         # ================ ACTION ================
@@ -116,6 +118,7 @@ class TestCardCreation(BaseTest):
         CardVerifications.verify_card_creation_custom_name_success(card,
                                                                    custom_name)
 
+    @pytest.mark.all_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_card_without_user_token_fail(self, resources):
         """
@@ -138,6 +141,7 @@ class TestCardCreation(BaseTest):
         #
         CardVerifications.verify_no_user_token_card_creation_fail(card)
 
+    @pytest.mark.all_test
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_card_with_invalid_product_token_fail(self, resources):
         """

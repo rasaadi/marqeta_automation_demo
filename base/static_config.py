@@ -8,8 +8,6 @@ class StaticConfig:
 
     # Sandbox Details:
     SANDBOX_BASE_URL = "https://sandbox-api.marqeta.com/v3/"
-    # APP_TOKEN = str('5b4be8a7-c908-4840-8c57-3b40253e7831')
-    # MASTER_TOKEN = str('8d810c08-4680-4e8b-bc73-f142bb605aa3')
     APP_TOKEN = '5b4be8a7-c908-4840-8c57-3b40253e7831'
     MASTER_TOKEN = '8d810c08-4680-4e8b-bc73-f142bb605aa3'
 
