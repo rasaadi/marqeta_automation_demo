@@ -45,11 +45,9 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        card_dict = {
-            "user_token": resources.user_token,
-            "card_product_token": resources.card_product_token
-        }
-        card_details = json.dumps(card_dict)
+        card_details = PayloadGenerator.card_payload(
+            user_token=resources.user_token,
+            card_product_token=resources.card_product_token)
 
         #
         # ================ ACTION ================
