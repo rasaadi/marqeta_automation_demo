@@ -20,7 +20,7 @@ class CardActions(ApiGenericActions):
         """
         method to create card products
         :param card_product_details: request payload containing product details
-        :return: new_product(json)
+        :return: card_product(json)
         """
         logger.info("Creating a new card product")
 
@@ -29,26 +29,26 @@ class CardActions(ApiGenericActions):
                                                 card_product_details)
 
             try:
-                new_product = response_msg.json()
+                card_product = response_msg.json()
             except ValueError as ve:
                 logger.error("Failed to convert card product details into "
                              "JSON")
 
             if http_code == 201:
-                self.product_token = new_product['token']
+                self.product_token = card_product['token']
             else:
                 logger.error("Error in the request, HTTP code: {}"
                              .format(http_code))
         else:
             logger.error("Missing card details")
 
-        return new_product
+        return card_product
 
     def create_card(self, card_details):
         """
         method to create card
         :param card_details: request payload containing card details
-        :return: new_card(json)
+        :return: card(json)
         """
         logger.info("Creating a new card")
 
@@ -56,16 +56,16 @@ class CardActions(ApiGenericActions):
             response_msg, http_code = self.post(self.card_url, card_details)
 
             try:
-                new_card = response_msg.json()
+                card = response_msg.json()
             except ValueError as ve:
                 logger.error("Failed to convert card details into JSON")
 
             if http_code == 201:
-                self.card_token = new_card['token']
+                self.card_token = card['token']
             else:
                 logger.error("Error in the request, HTTP code: {}"
                              .format(http_code))
         else:
             logger.error("Missing card details")
 
-        return new_card
+        return card
