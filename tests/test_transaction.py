@@ -78,7 +78,6 @@ class TestTransaction(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        logger.info(json.dumps(transaction, indent=2))
         TransactionVerifications.verify_transaction_create_success(
             transaction, 15)
 
