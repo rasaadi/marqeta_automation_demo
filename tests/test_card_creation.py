@@ -59,7 +59,7 @@ class TestCardCreation(BaseTest):
         #
         CardVerifications.verify_card_creation_success(card, resources)
 
-    @pytest.mark.skip(reason="Test Disable")
+    # @pytest.mark.skip(reason="Test Disable")
     def test_create_multiple_cards_same_user_product_success(self, resources):
         """
         Test create multiple cards for same user and card product successfully
@@ -67,11 +67,9 @@ class TestCardCreation(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        card_dict = {
-            "user_token": resources.user_token,
-            "card_product_token": resources.card_product_token
-        }
-        card_details = json.dumps(card_dict)
+        card_details = PayloadGenerator.card_payload(
+            user_token=resources.user_token,
+            card_product_token=resources.card_product_token)
 
         #
         # ================ ACTION ================
@@ -82,8 +80,8 @@ class TestCardCreation(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        resources.card_verification \
-            .verify_multiple_cards_same_user_product_success(card1, card2)
+        CardVerifications.verify_multiple_cards_same_user_product_success(
+            card1, card2)
 
     @pytest.mark.skip(reason="Test Disable")
     def test_create_personalized_card_with_name_success(self, resources):
