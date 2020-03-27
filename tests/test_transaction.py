@@ -21,15 +21,15 @@ class TestTransaction(BaseTest):
     def resources(self):
         # Create user
         user_client = UserActions()
-        user_client.create_user(PayloadGenerator.get_user_payload())
+        user_client.create_user(PayloadGenerator.user_payload())
 
         # Create card product
         card_client = CardActions()
         card_client.create_card_product(
-            PayloadGenerator.get_card_product_payload())
+            PayloadGenerator.card_product_payload())
 
         # Create card for the user using card product
-        card_client.create_card(PayloadGenerator.get_card_payload(
+        card_client.create_card(PayloadGenerator.card_payload(
             user_token=user_client.user_token,
             card_product_token=card_client.product_token))
 
@@ -51,7 +51,7 @@ class TestTransaction(BaseTest):
         #
         # ================ CONFIGURATION ================
         #
-        transaction_details = PayloadGenerator.get_transaction_payload(
+        transaction_details = PayloadGenerator.transaction_payload(
             amount="15", card_token=resources.card_token)
 
         #

@@ -11,7 +11,7 @@ class PayloadGenerator:
     timestamp = UtilsHelper()
 
     @staticmethod
-    def get_user_payload():
+    def user_payload():
         logger.info("Generating user payload")
         user_dict = {
             "first_name": "Joe_" + PayloadGenerator.timestamp.time_stamp(),
@@ -22,7 +22,7 @@ class PayloadGenerator:
         return user_payload
 
     @staticmethod
-    def get_card_product_payload():
+    def card_product_payload():
         logger.info("Generating card product payload")
         card_prod_dict = {
             "start_date": PayloadGenerator.timestamp.date(),
@@ -43,7 +43,7 @@ class PayloadGenerator:
         return card_prod_payload
 
     @staticmethod
-    def get_card_payload(**kwargs):
+    def card_payload(**kwargs):
         logger.info("Generating card payload")
         card_dict = {
             "user_token": "**USER TOKEN**",
@@ -62,7 +62,18 @@ class PayloadGenerator:
         return card_payload
 
     @staticmethod
-    def get_gpaorder_payload(**kwargs):
+    def funding_source_payload():
+        logger.info("Generating program funding source payload")
+        funding_dict = {
+            "name": "Program_Funding_" +
+                    PayloadGenerator.timestamp.time_stamp()
+        }
+
+        funding_payload = json.dumps(funding_dict)
+        return funding_payload
+
+    @staticmethod
+    def gpaorder_payload(**kwargs):
         logger.info("Generating gpaorder payload")
         gpaorder_dict = {
             "user_token": "**USER TOKEN**",
@@ -83,7 +94,28 @@ class PayloadGenerator:
         return gpaorder_payload
 
     @staticmethod
-    def get_transaction_payload(**kwargs):
+    def user_account_funding_payload(**kwargs):
+        logger.info("Generating user account funding payload")
+        account_dict = {
+            "user_token": "**USER TOKEN**",
+            "amount": "1000",
+            "currency_code": "USD",
+            "funding_source_token": "**PROGRAM FUNDING SOURCE TOKEN**"
+        }
+
+        if len(kwargs) >= 2:
+            for key in kwargs:
+                for k in account_dict:
+                    if key == k:
+                        account_dict[k] = kwargs[key]
+        else:
+            logger.error("Insufficient account funding details provided")
+
+        account_fund_payload = json.dumps(account_dict)
+        return account_fund_payload
+
+    @staticmethod
+    def transaction_payload(**kwargs):
         logger.info("Generating transaction payload")
         transaction_dict = {
             "amount": "10",
