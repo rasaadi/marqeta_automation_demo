@@ -9,13 +9,13 @@ class UserActions(ApiGenericActions):
     def __init__(self):
         super().__init__()
         self.user_token = None
+        self.user_url = self.base_url + "users"
 
     def create_user(self, user_details):
         logger.info("Creating a new user")
 
-        user_url = self.base_url + "users"
         if user_details is not None:
-            response_msg, http_code = self.post(user_url, user_details)
+            response_msg, http_code = self.post(self.user_url, user_details)
 
             try:
                 new_user = response_msg.json()
