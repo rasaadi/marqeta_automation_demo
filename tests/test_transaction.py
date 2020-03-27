@@ -12,6 +12,7 @@ from actions.user_actions import UserActions
 from base.base_test import BaseTest
 from utils.utils_helper import UtilsHelper
 from verifications.card_verifications import CardVerifications
+from verifications.transaction_verifications import TransactionVerifications
 
 logger = logging.getLogger(__name__)
 
@@ -79,4 +80,6 @@ class TestTransaction(BaseTest):
         #
         # ================ VERIFICATION ================
         #
-        logger.info(transaction)
+        # logger.info(json.dumps(transaction, indent=2))
+        TransactionVerifications.verify_transaction_create_success(
+            transaction, 15)
