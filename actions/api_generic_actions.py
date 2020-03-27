@@ -20,8 +20,6 @@ class ApiGenericActions(BaseTest):
             'Content-type': 'application/json',
             'Accept': 'application/json',
         }
-        self.data = None
-        self.auth = None
         self.app_token = StaticConfig.APP_TOKEN
         self.master_token = StaticConfig.MASTER_TOKEN
 
@@ -39,8 +37,8 @@ class ApiGenericActions(BaseTest):
         except requests.exceptions.RequestException as re:
             logger.error("GET request execution failed: {}".format(re))
         else:
-            if response.status_code == 200 or response.status_code == 201:
-                return response
+            if response.status_code != 500:
+                return response, response.status_code
             else:
                 raise MarqetaApiException("Marqeta api GET request error, "
                                           "response content: {}".format(
@@ -59,7 +57,6 @@ class ApiGenericActions(BaseTest):
                 response = requests.post(url, headers=self.headers,
                                          data=data, auth=(self.app_token,
                                                           self.master_token))
-
             time.sleep(2)
         except requests.exceptions.RequestException as re:
             logger.error("POST request execution failed: {}".format(re))
