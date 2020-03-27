@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 
 from utils.utils_helper import UtilsHelper
 
@@ -11,7 +12,7 @@ class PayloadGenerator:
 
     @staticmethod
     def get_user_payload():
-        logger.info("Generation user payload")
+        logger.info("Generating user payload")
         user_dict = {
             "first_name": "Joe_" + PayloadGenerator.timestamp.time_stamp(),
             "last_name": "Smith_" + PayloadGenerator.timestamp.time_stamp(),
@@ -20,10 +21,9 @@ class PayloadGenerator:
         user_payload = json.dumps(user_dict)
         return user_payload
 
-
     @staticmethod
     def get_card_product_payload():
-        logger.info("Generation card product payload")
+        logger.info("Generating card product payload")
         card_prod_dict = {
             "start_date": PayloadGenerator.timestamp.date(),
             "name": "New_Card_Product_" + PayloadGenerator.timestamp.date(),
@@ -44,14 +44,15 @@ class PayloadGenerator:
 
     @staticmethod
     def get_card_payload(**kwargs):
-        logger.info("Generation card payload")
+        logger.info("Generating card payload")
         card_dict = {
             "user_token": "**USER TOKEN**",
             "card_product_token": "**CARD PRODUCT TOKEN**"
         }
+
         if len(kwargs) >= 2:
             for key in kwargs:
-                for k, v in card_dict.items():
+                for k in card_dict:
                     if key == k:
                         card_dict[k] = kwargs[key]
         else:
@@ -60,3 +61,43 @@ class PayloadGenerator:
         card_payload = json.dumps(card_dict)
         return card_payload
 
+    @staticmethod
+    def get_gpaorder_payload(**kwargs):
+        logger.info("Generating gpaorder payload")
+        gpaorder_dict = {
+            "user_token": "**USER TOKEN**",
+            "amount": "1000",
+            "currency_code": "USD",
+            "funding_source_token": "**PROGRAM FUNDING SOURCE TOKEN**"
+        }
+
+        if len(kwargs) >= 2:
+            for key in kwargs:
+                for k in gpaorder_dict:
+                    if key == k:
+                        gpaorder_dict[k] = kwargs[key]
+        else:
+            logger.error("Insufficient gpaorder details provided")
+
+        gpaorder_payload = json.dumps(gpaorder_dict)
+        return gpaorder_payload
+
+    @staticmethod
+    def get_transaction_payload(**kwargs):
+        logger.info("Generating transaction payload")
+        transaction_dict = {
+            "amount": "10",
+            "mid": str(random.randrange(1000000000, 9999999999)),
+            "card_token": "**CARD TOKEN FROM PREVIOUS STEP**"
+        }
+
+        if len(kwargs) >= 1:
+            for key in kwargs:
+                for k in transaction_dict:
+                    if key == k:
+                        transaction_dict[k] = kwargs[key]
+        else:
+            logger.error("Insufficient transaction details provided")
+
+        transaction_payload = json.dumps(transaction_dict)
+        return transaction_payload
