@@ -23,7 +23,7 @@ class TransactionActions(ApiGenericActions):
                 logger.error("Failed to convert transaction details into JSON")
 
             if http_code == 201:
-                self.transaction_token = transaction['token']
+                self.transaction_token = transaction['transaction']['token']
             elif http_code == 409:
                 logger.error(
                     "Request already processed with a different payload")
