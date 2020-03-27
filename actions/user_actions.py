@@ -24,13 +24,9 @@ class UserActions(ApiGenericActions):
 
             if http_code == 201:
                 self.user_token = new_user['token']
-            elif http_code == 409:
-                logger.error(
-                    "Request already processed with a different payload")
-            elif http_code == 412:
-                logger.error("Pre-condition setup issue")
             else:
-                logger.error("User input error/Bad request")
+                logger.error("Error in the request, HTTP code: {}"
+                             .format(http_code))
         else:
             logger.error("Missing card details")
 

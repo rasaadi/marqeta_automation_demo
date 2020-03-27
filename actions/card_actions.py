@@ -28,11 +28,9 @@ class CardActions(ApiGenericActions):
 
             if http_code == 201:
                 self.product_token = new_product['token']
-            elif http_code == 409:
-                logger.error(
-                    "Token already associated with a different payload")
             else:
-                logger.error("User input error/Bad request")
+                logger.error("Error in the request, HTTP code: {}"
+                             .format(http_code))
         else:
             logger.error("Missing card details")
 
@@ -51,11 +49,9 @@ class CardActions(ApiGenericActions):
 
             if http_code == 201:
                 self.card_token = new_card['token']
-            elif http_code == 409:
-                logger.error(
-                    "Token already associated with a different payload")
             else:
-                logger.error("User input error/Bad request")
+                logger.error("Error in the request, HTTP code: {}"
+                             .format(http_code))
         else:
             logger.error("Missing card details")
 
