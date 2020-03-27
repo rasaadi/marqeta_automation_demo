@@ -7,6 +7,9 @@ logger = logging.getLogger(__name__)
 
 class CardActions(ApiGenericActions):
     def __init__(self):
+        """
+        init method to create object of this class
+        """
         super().__init__()
         self.product_token = None
         self.product_url = self.base_url + "cardproducts"
@@ -14,6 +17,11 @@ class CardActions(ApiGenericActions):
         self.card_url = self.base_url + "cards"
 
     def create_card_product(self, card_product_details):
+        """
+        method to create card products
+        :param card_product_details: request payload containing product details
+        :return: new_product
+        """
         logger.info("Creating a new card product")
 
         if card_product_details is not None:
@@ -37,6 +45,11 @@ class CardActions(ApiGenericActions):
         return new_product
 
     def create_card(self, card_details):
+        """
+        method to create card
+        :param card_details: request payload containing card details
+        :return: new_card
+        """
         logger.info("Creating a new card")
 
         if card_details is not None:
