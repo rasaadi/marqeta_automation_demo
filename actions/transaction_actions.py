@@ -12,6 +12,12 @@ class TransactionActions(ApiGenericActions):
         self.url = self.base_url + "simulate/authorization"
 
     def create_transaction(self, transaction_payload):
+        """
+        method to create  transaction
+        :param transaction_payload: request payload containing transaction
+        details
+        :return: transaction(json)
+        """
         logger.info("Creating a new transaction")
 
         if transaction_payload is not None:
