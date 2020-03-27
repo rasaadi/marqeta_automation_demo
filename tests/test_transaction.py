@@ -44,24 +44,31 @@ class TestTransaction(BaseTest):
         "card_product_token": "**CARD PRODUCT TOKEN**"
     }
 
-    card_details = json.dumps(card_dict)
-
     @pytest.fixture(scope='module')
     def resources(self):
+        # Create user
         user_client = UserActions()
         user_client.create_user(self.user_details)
 
+        # Create card product
         card_client = CardActions()
         card_client.create_card_product(self.card_prod_details)
 
+        # Create card for the user using card product
+        self.card_dict.update(user_token=user_client.user_token,
+                              card_product_token=card_client.product_token)
+        card_details = json.dumps(self.card_dict)
+        card_client.create_card(card_details)
+
         Data = namedtuple('Data',
                           'user_client, user_token, card_client,'
-                          'card_product_token')
+                          'card_product_token, card_token')
 
         return Data(user_client=user_client,
                     user_token=user_client.user_token,
                     card_client=card_client,
-                    card_product_token=card_client.product_token)
+                    card_product_token=card_client.product_token,
+                    card_token=card_client.card_token)
 
     # @pytest.mark.skip(reason="Test Disable")
     def test_create_transaction_success(self, resources):

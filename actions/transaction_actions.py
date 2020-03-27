@@ -27,9 +27,9 @@ class TransactionActions(ApiGenericActions):
             elif http_code == 409:
                 logger.error(
                     "Request already processed with a different payload")
-            elif http_code == 422:
-                logger.error("Rule violations or declined transactions from "
-                             "funding source")
+            # elif http_code == 422:
+            #     logger.error("Rule violations or declined transactions from "
+            #                  "funding source")
             else:
                 logger.error("User input error/Bad request")
         else:
