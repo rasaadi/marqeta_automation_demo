@@ -58,6 +58,7 @@ This is Marqeta api automation test framework to test Marqeta card creation and
 
 ### Instruction to Run
 * Update necessary variables in `/base/static_config.py` with your own (Common variables: APP_TOKEN, MASTER_TOKEN)
+    * Tokens can be found by create a new sandbox environment, following the instructions here: https://www.marqeta.com/docs/developer-guides/core-api-quick-start
 * Run `all tests` with the following commands from the `project root directory`
    * `pytest -s -v --html=reports/all_test_report.html --self-contained-html -m all_test`
 * Run `individual test module` with the following commands from the `project root directory`
