@@ -6,7 +6,7 @@ This is Marqeta api automation test framework to test Marqeta card creation and
 ### Required Tools:
 * Python 3.5 or higher
 * virtualenv (optional)(_Install it using `pip install virtualenv`_)
-* IDE: Preferably PyCharm
+* IDE: Preferably PyChar
 * Git client (optional)
 
 
@@ -17,7 +17,7 @@ This is Marqeta api automation test framework to test Marqeta card creation and
     * **verifications** (_Function libraries / modules that helps to verify the result of various system activities performed by the **actions**_)  
     * **tests** (_Contains actual step by step test descriptions as **pytest** functions where both **actions** and **verifications** are used to perform test activities and verify results_)
     * **utils** (_Function libraries / modules the utility scripts and works as helper for the **actions** modules to perform various actions_)
-    * **resources** (_Test config files such as .csv, .png, and .xml files that are not really CODE file and generally remain STATIC through out the project life cycle_)
+    * **resources** (_Test config files  and other resources that are not really CODE file and generally remain STATIC through out the project life cycle_)
     * **reports** (_Package contains test reports and other test outputs in one place for easy organization and management_)
 
 
@@ -43,12 +43,14 @@ This is Marqeta api automation test framework to test Marqeta card creation and
         #
         CardVerifications.verify_card_creation_success(card, resources)
  
- ### Prepare development env:
-* Clone your dev branch in your local machine
-* Create a virtual environment for the project
+
+### Prepare test environment:
+* Clone test repo in your local machine (if project is delivered from GitHub)
+* Unzip the project/repo .zip file (if project is delivered in a .zip file) 
+* Create a virtual environment for the project (optional)
     * `cd project_folder`
     * `virtualenv venv`
-* Activate the virtual environment
+* Activate the virtual environment (optional)
     * `source venv/bin/activate`
 * Install all the project requirements
     * `pip install -r requirements.txt`
