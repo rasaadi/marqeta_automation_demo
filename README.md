@@ -44,7 +44,7 @@ This is Marqeta api automation test framework to test Marqeta card creation and
         CardVerifications.verify_card_creation_success(card, resources)
  
 
-### Prepare test environment:
+### Prepare Test Environment:
 * Clone test repo in your local machine (if project is delivered from GitHub)
 * Unzip the project/repo .zip file (if project is delivered in a .zip file) 
 * Create a virtual environment for the project (optional)
