@@ -54,3 +54,12 @@ This is Marqeta api automation test framework to test Marqeta card creation and
     * `source venv/bin/activate`
 * Install all the project requirements
     * `pip install -r requirements.txt`
+
+
+### Instruction to Run
+* Update necessary variables in `/base/static_config.py` with your own (Common variables: APP_TOKEN, MASTER_TOKEN)
+* Run `all tests` with the following commands from the `project root directory`
+   * `pytest -s -v --html=reports/all_test_report.html --self-contained-html -m all_test`
+* Run `individual test module` with the following commands from the `project root directory`
+   * `pytest -s -v --html=reports/<module_name>_report.html --self-contained-html /tests/<module_name>.py`
+
