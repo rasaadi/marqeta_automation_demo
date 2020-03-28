@@ -12,6 +12,12 @@ class TransactionActions(ApiGenericActions):
         self.url = self.base_url + "simulate/authorization"
 
     def create_transaction(self, transaction_payload):
+        """
+        method to create  transaction
+        :param transaction_payload: request payload containing transaction
+        details
+        :return: transaction(json)
+        """
         logger.info("Creating a new transaction")
 
         if transaction_payload is not None:
@@ -24,14 +30,9 @@ class TransactionActions(ApiGenericActions):
 
             if http_code == 201:
                 self.transaction_token = transaction['transaction']['token']
-            elif http_code == 409:
-                logger.error(
-                    "Request already processed with a different payload")
-            # elif http_code == 422:
-            #     logger.error("Rule violations or declined transactions from "
-            #                  "funding source")
             else:
-                logger.error("User input error/Bad request")
+                logger.error("Error in the request, HTTP code: {}"
+                             .format(http_code))
         else:
             logger.error("Missing transaction details")
 
