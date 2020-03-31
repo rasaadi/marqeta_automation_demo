@@ -64,3 +64,6 @@ This is Marqeta api automation test framework to test Marqeta card creation and
 * Run `individual test module` with the following commands from the `project root directory`
    * `pytest -s -v --html=reports/<module_name>_report.html --self-contained-html /tests/<module_name>.py`
 
+
+### Build Status
+* Latest build status can be found under the `Actions` tab of the repo
