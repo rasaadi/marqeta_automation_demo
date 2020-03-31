@@ -32,5 +32,5 @@ jobs:
         pip install pytest
         pytest -v -m all_test
       env:
-        APP_TOKEN: placeholder
-        MASTER_TOKEN: placeholder
+        APP_TOKEN: ${{ secrets.APP_TOKEN }}
+        MASTER_TOKEN: ${{ secrets.MASTER_TOKEN }}
