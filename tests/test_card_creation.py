@@ -3,6 +3,7 @@ from collections import namedtuple
 import pytest
 
 from actions.card_actions import CardActions
+from actions.card_product_action import CardProductActions
 from actions.payload_generator import PayloadGenerator
 from actions.user_actions import UserActions
 from base.base_test import BaseTest
@@ -20,10 +21,17 @@ class TestCardCreation(BaseTest):
         user_client = UserActions()
         user_client.create_user(PayloadGenerator.user_payload())
 
+
         # Create card product
-        card_client = CardActions()
-        card_client.create_card_product(
+        cp_client = CardProductActions()
+        cp_client.create_card_product(
             PayloadGenerator.card_product_payload())
+
+
+
+        card_client = CardActions()
+        # card_client.create_card_product(
+        #     PayloadGenerator.card_product_payload())
 
         Data = namedtuple('Data', 'user_client, user_token, card_client,'
                                   'card_product_token')
@@ -31,11 +39,11 @@ class TestCardCreation(BaseTest):
         return Data(user_client=user_client,
                     user_token=user_client.user_token,
                     card_client=card_client,
-                    card_product_token=card_client.product_token)
+                    card_product_token=cp_client.product_token)
 
     @pytest.mark.all_test
     @pytest.mark.smoke_test
-    # @pytest.mark.skip(reason="Test Disable")
+    @pytest.mark.skip(reason="Test Disable")
     def test_create_card_success(self, resources):
         """
         Test create a new card  successfully
@@ -76,6 +84,10 @@ class TestCardCreation(BaseTest):
         card1 = resources.card_client.create_card(card_details)
         card2 = resources.card_client.create_card(card_details)
 
+        logger.info("card1: {}".format(card1['state']))
+        logger.info("card2: {}".format(card2['state']))
+        logger.info("card1: {}".format(card1['state']))
+
         #
         # ================ VERIFICATION ================
         #
@@ -83,7 +95,7 @@ class TestCardCreation(BaseTest):
             card1, card2)
 
     @pytest.mark.all_test
-    # @pytest.mark.skip(reason="Test Disable")
+    @pytest.mark.skip(reason="Test Disable")
     def test_create_personalized_card_with_name_success(self, resources):
         """
         Test create a new personalized card with custom name successfully
@@ -119,7 +131,7 @@ class TestCardCreation(BaseTest):
                                                                    custom_name)
 
     @pytest.mark.all_test
-    # @pytest.mark.skip(reason="Test Disable")
+    @pytest.mark.skip(reason="Test Disable")
     def test_create_card_without_user_token_fail(self, resources):
         """
         Test create a new card without user token unsuccessfully
@@ -142,7 +154,7 @@ class TestCardCreation(BaseTest):
         CardVerifications.verify_no_user_token_card_creation_fail(card)
 
     @pytest.mark.all_test
-    # @pytest.mark.skip(reason="Test Disable")
+    @pytest.mark.skip(reason="Test Disable")
     def test_create_card_with_invalid_product_token_fail(self, resources):
         """
         Test create a new card  with invalid product token unsuccessfully

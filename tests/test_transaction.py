@@ -3,6 +3,7 @@ from collections import namedtuple
 
 import pytest
 
+from actions.card_product_action import CardProductActions
 from actions.card_actions import CardActions
 from actions.funding_actions import FundingActions
 from actions.payload_generator import PayloadGenerator
@@ -22,15 +23,18 @@ class TestTransaction(BaseTest):
         user_client = UserActions()
         user_client.create_user(PayloadGenerator.user_payload())
 
+
         # Create card product
-        card_client = CardActions()
-        card_client.create_card_product(
+        cp_client = CardProductActions()
+        cp_client.create_card_product(
             PayloadGenerator.card_product_payload())
 
+
         # Create card for the user using card product
+        card_client = CardActions()
         card_client.create_card(PayloadGenerator.card_payload(
             user_token=user_client.user_token,
-            card_product_token=card_client.product_token))
+            card_product_token=cp_client.product_token))
 
         # Create Funding program source
         funding_client = FundingActions()
@@ -50,7 +54,7 @@ class TestTransaction(BaseTest):
         return Data(user_client=user_client,
                     user_token=user_client.user_token,
                     card_client=card_client,
-                    card_product_token=card_client.product_token,
+                    card_product_token=cp_client.product_token,
                     card_token=card_client.card_token,
                     funding_client=funding_client,
                     funding_source_token=funding_client.funding_source_token,
